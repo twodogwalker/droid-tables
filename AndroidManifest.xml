@@ -13,7 +13,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="CalcActivity" android:theme="@android:style/Theme.Light"></activity>
+        <activity android:name="CalcActivity" android:theme="@android:style/Theme.Light" android:noHistory="true"></activity>
+        <activity android:name="ResultList" android:theme="@android:style/Theme.Light"></activity>
 
     </application>
 </manifest>

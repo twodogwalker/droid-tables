@@ -1,7 +1,10 @@
 package nl.frankprins.droidtables;
 
+import java.io.Serializable;
 
-public class Question {
+
+public class Question implements Serializable {
+  private static final long serialVersionUID = 1L;
   private int position = 0;
   private Long startTime;
   private Long endTime;
