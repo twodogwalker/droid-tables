@@ -1,8 +1,10 @@
 package nl.frankprins.droidtables;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 
-public class QuestionFactory {
+public class QuestionFactory implements Parcelable {
   private Question[] qList = null;
   private int current = 0;
   private int numberOfQuestions = 0;
@@ -31,6 +33,10 @@ public class QuestionFactory {
     }
   }
 
+  public Question[] getQuestions() {
+    return qList;
+  }
+  
   public Question getFirstQ() {
     if (qList.length > current) {
       return this.qList[current];
@@ -74,7 +80,43 @@ public class QuestionFactory {
   public int getMaxTime() {
     return maxTime;
   }
+  
   public int getNumberOfQuestions() {
     return numberOfQuestions;
+  }
+  
+  /* everything below here is for implementing Parcelable */
+
+  // 99.9% of the time you can just ignore this
+  public int describeContents() {
+      return 0;
+  }
+
+  // write your object's data to the passed-in Parcel
+  public void writeToParcel(Parcel out, int flags) {
+      out.writeInt(current);
+      out.writeInt(numberOfQuestions);
+      out.writeInt(maxTime);
+      out.writeSerializable(qList);
+  }
+
+  // this is used to regenerate your object. All Parcelables must have a CREATOR that implements these two methods
+  public static final Parcelable.Creator<QuestionFactory> CREATOR = new Parcelable.Creator<QuestionFactory>() {
+      public QuestionFactory createFromParcel(Parcel in) {
+          return new QuestionFactory(in);
+      }
+
+      public QuestionFactory[] newArray(int size) {
+          return new QuestionFactory[size];
+      }
+  };
+
+  // example constructor that takes a Parcel and gives you an object populated with it's values
+  private QuestionFactory(Parcel in) {
+    current = in.readInt();
+    numberOfQuestions = in.readInt();
+    maxTime = in.readInt();
+    qList = (Question[]) in.readSerializable();
+    //qList = in.readTypedArray(<Question>, c)
   }
 }

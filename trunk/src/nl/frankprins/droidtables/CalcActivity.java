@@ -1,8 +1,7 @@
 package nl.frankprins.droidtables;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -103,11 +102,9 @@ public class CalcActivity extends Activity implements OnClickListener {
     if (nextQ != null) {
       startQuestion(nextQ);
     } else {
-      Builder adb = new AlertDialog.Builder(CalcActivity.this);
-      adb.setTitle("Finished");
-      adb.setMessage(qFact.getResult());
-      adb.setPositiveButton("close", null);
-      adb.show();
+      Intent intent = new Intent(getApplicationContext(), ResultList.class);
+      intent.putExtra("RESULTS", qFact);
+      startActivity(intent);
     }
   }
 
