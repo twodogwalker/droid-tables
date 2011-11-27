@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Lets do some math!</string>
+    <string name="app_name">Droid Tables</string>
+    <string name="level_choice_prompt">choose a level</string>
+    <string-array name="level_choice_array">
+        <item >easy</item>
+        <item >moderate</item>
+        <item >difficult</item>
+    </string-array>
+</resources>
