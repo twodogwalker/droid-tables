@@ -32,7 +32,7 @@ public class ResultList extends Activity {
     List<HashMap<String, String>> fillMaps = new ArrayList<HashMap<String, String>>();
     for (int i = 0; i < qf.getQuestions().length; i++) {
       HashMap<String, String> map = new HashMap<String, String>();
-      map.put("rowid", "" + i);
+      map.put("rowid", "" + i+1);
       Question curq = qf.getQuestions()[i];
       String q = curq.getMultiplier() + " x " + curq.getTable() + " = " + curq.getAnswer();
       map.put("col_1", q);
