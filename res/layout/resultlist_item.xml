@@ -7,24 +7,24 @@
         	android:text="row_id"
         	android:layout_height="fill_parent"
         	android:layout_width="wrap_content"
-        	android:width="20dip"
+        	android:width="80dip"
         />
         <TextView android:id="@+id/item2"
 	        android:text="col_1"
 	        android:layout_height="fill_parent"
 	        android:layout_width="wrap_content"
-	        android:width="100dip"
+	        android:width="150dip"
 	    />
 	    <TextView android:id="@+id/item3"
 	        android:text="col_2"
 	        android:layout_height="fill_parent"
 	        android:layout_width="wrap_content"
-	        android:width="100dip"
+	        android:width="40dip"
 	    />
 	    <TextView android:id="@+id/item4"
 	        android:text="col_3"
 	        android:layout_height="fill_parent"
 	        android:layout_width="wrap_content"
-	        android:width="100dip"
+	        android:width="60dip"
 	    />
 </LinearLayout>

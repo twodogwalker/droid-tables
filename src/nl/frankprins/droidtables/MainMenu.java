@@ -6,6 +6,7 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -15,7 +16,8 @@ import android.widget.Toast;
 
 public class MainMenu extends Activity {
 
-  Spinner levelchoice;
+  private Spinner levelchoice;
+  private HighScoreFactory hsf;
 
   /** Called when the activity is first created. */
   @Override
@@ -100,5 +102,13 @@ public class MainMenu extends Activity {
         R.array.level_choice_array, android.R.layout.simple_spinner_item);
     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
     levelchoice.setAdapter(adapter);
+    
+    hsf = new HighScoreFactory(this);
+    hsf.addScore("Frank", 3500);
+    hsf.addScore("Bert", 150);
+    //hsf.addScore("Teun", 750);
+    for (int i = 0; i < 10; i++) {
+      Log.i("Tables", "position " + hsf.getScore(i) + ", score: " + hsf.getName(i));
+    }
   }
 }

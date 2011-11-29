@@ -45,9 +45,9 @@ public class CalcActivity extends Activity implements OnClickListener {
   public void onClick(View v) {
     String answer = (String) resultBox.getText();
     if (v == BtnE) {
-      if (answer != "") {
+
         validateInput(answer);
-      }
+
       return;
     }
     // Get the button
@@ -94,6 +94,9 @@ public class CalcActivity extends Activity implements OnClickListener {
   }
 
   private void validateInput(String resultString) {
+    if(resultString == "") {
+      resultString = "0";
+    }
     int result = Integer.parseInt(resultString);
     qFact.setCurrentQAnswer(result);
     qFact.stopCurrentQ();
