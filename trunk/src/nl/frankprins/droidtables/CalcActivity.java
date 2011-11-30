@@ -14,6 +14,7 @@ import android.widget.Toast;
 public class CalcActivity extends Activity implements OnClickListener {
   private QuestionFactory qFact = null;
   private String level;
+  private int score = 0;
   private ProgressBar progressBar;
   private MyTimer timer;
   private TextView questionTitleView;
@@ -36,18 +37,16 @@ public class CalcActivity extends Activity implements OnClickListener {
     tableLabel = (TextView) findViewById(R.id.TextViewS3);
     level = getIntent().getStringExtra("LEVEL");
     qFact = new QuestionFactory(level, getIntent().getIntArrayExtra("TABLES"));
-    timer = new MyTimer(qFact.getMaxTime()*1000, 100);
+    timer = new MyTimer(qFact.getMaxTime(), 100);
     startQuestion(qFact.getFirstQ());
-    
+
   }
 
   @Override
   public void onClick(View v) {
     String answer = (String) resultBox.getText();
     if (v == BtnE) {
-
-        validateInput(answer);
-
+      validateInput(answer);
       return;
     }
     // Get the button
@@ -94,12 +93,13 @@ public class CalcActivity extends Activity implements OnClickListener {
   }
 
   private void validateInput(String resultString) {
-    if(resultString == "") {
+    if (resultString == "") {
       resultString = "0";
     }
     int result = Integer.parseInt(resultString);
     qFact.setCurrentQAnswer(result);
     qFact.stopCurrentQ();
+
     timer.cancel();
     Question nextQ = qFact.getNextQ();
     if (nextQ != null) {
@@ -124,20 +124,24 @@ public class CalcActivity extends Activity implements OnClickListener {
   }
 
   public class MyTimer extends CountDownTimer {
-    public MyTimer(int t, int i) {
+    private long max = 0;
+
+    public MyTimer(long t, int i) {
       super(t, i);
+      this.max = t;
     }
 
     @Override
     public void onFinish() {
-      Toast.makeText(getApplicationContext(), "Sorry, time is up!", 1000).show();
+      Toast.makeText(getApplicationContext(), "Sorry, time is up!", 2000).show();
       setDigitButtonsEnabled(false);
     }
 
     @Override
     public void onTick(long millisUntilFinished) {
-      progressBar.setProgress((int) (millisUntilFinished / 100));
+      progressBar.setProgress((int) ((max - (max - millisUntilFinished)) / 100));
     }
+
   }
 
   public void setDigitButtonsEnabled(boolean b) {
