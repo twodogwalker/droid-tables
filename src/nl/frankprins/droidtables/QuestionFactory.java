@@ -8,7 +8,8 @@ public class QuestionFactory implements Parcelable {
   private Question[] qList = null;
   private int current = 0;
   private int numberOfQuestions = 0;
-  private int maxTime = 0;
+  private long maxTime = 0;
+  private int pointsPerQuestion = 0;
 
   public QuestionFactory(String level, int[] tables) {
     setLevel(level);
@@ -16,27 +17,34 @@ public class QuestionFactory implements Parcelable {
     for (int i = 0; i < numberOfQuestions; i++) {
       int t = (int) (Math.random() * ((tables.length) + 1) - 1);
       int m = 1 + (int) (Math.random() * 10);
-      qList[i] = new Question(i, tables[t], m);
+      qList[i] = new Question(i, tables[t], m, this.maxTime);
     }
   }
 
   private void setLevel(String level) {
     if (level.equalsIgnoreCase("easy")) {
       this.numberOfQuestions = 5;
-      this.maxTime = 10;
+      this.maxTime = 10000;
+      this.pointsPerQuestion = 8;
     } else if (level.equalsIgnoreCase("moderate")) {
       this.numberOfQuestions = 10;
-      this.maxTime = 5;
+      this.maxTime = 5000;
+      this.pointsPerQuestion = 10;
     } else if (level.equalsIgnoreCase("difficult")) {
       this.numberOfQuestions = 15;
-      this.maxTime = 3;
+      this.maxTime = 3000;
+      this.pointsPerQuestion = 12;
     }
+  }
+  
+  public int getPointsPerQuestion() {
+    return this.pointsPerQuestion;
   }
 
   public Question[] getQuestions() {
     return qList;
   }
-  
+
   public Question getFirstQ() {
     if (qList.length > current) {
       return this.qList[current];
@@ -77,46 +85,47 @@ public class QuestionFactory implements Parcelable {
     return a.toString();
   }
 
-  public int getMaxTime() {
-    return maxTime;
-  }
-  
   public int getNumberOfQuestions() {
     return numberOfQuestions;
   }
-  
+
   /* everything below here is for implementing Parcelable */
 
   // 99.9% of the time you can just ignore this
   public int describeContents() {
-      return 0;
+    return 0;
   }
 
   // write your object's data to the passed-in Parcel
   public void writeToParcel(Parcel out, int flags) {
-      out.writeInt(current);
-      out.writeInt(numberOfQuestions);
-      out.writeInt(maxTime);
-      out.writeSerializable(qList);
+    out.writeInt(current);
+    out.writeInt(numberOfQuestions);
+    out.writeLong(maxTime);
+    out.writeSerializable(qList);
   }
 
-  // this is used to regenerate your object. All Parcelables must have a CREATOR that implements these two methods
+  // this is used to regenerate your object. All Parcelables must have a CREATOR
+  // that implements these two methods
   public static final Parcelable.Creator<QuestionFactory> CREATOR = new Parcelable.Creator<QuestionFactory>() {
-      public QuestionFactory createFromParcel(Parcel in) {
-          return new QuestionFactory(in);
-      }
+    public QuestionFactory createFromParcel(Parcel in) {
+      return new QuestionFactory(in);
+    }
 
-      public QuestionFactory[] newArray(int size) {
-          return new QuestionFactory[size];
-      }
+    public QuestionFactory[] newArray(int size) {
+      return new QuestionFactory[size];
+    }
   };
 
-  // example constructor that takes a Parcel and gives you an object populated with it's values
+  // example constructor that takes a Parcel and gives you an object populated
+  // with it's values
   private QuestionFactory(Parcel in) {
     current = in.readInt();
     numberOfQuestions = in.readInt();
-    maxTime = in.readInt();
+    maxTime = in.readLong();
     qList = (Question[]) in.readSerializable();
-    //qList = in.readTypedArray(<Question>, c)
+  }
+
+  public long getMaxTime() {
+    return this.getMaxTime();
   }
 }

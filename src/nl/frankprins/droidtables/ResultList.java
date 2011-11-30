@@ -14,6 +14,7 @@ import android.widget.SimpleAdapter;
 public class ResultList extends Activity {
   private QuestionFactory qf;
   private int correctQ = 0;
+  private int score = 0;
 
   /** Called when the activity is first created. */
   @Override
@@ -25,12 +26,13 @@ public class ResultList extends Activity {
     qf = (QuestionFactory) getIntent().getParcelableExtra("RESULTS");
 
     // create the grid item mapping
-    String[] from = new String[] { "rowid", "col_1", "col_2", "col_3" };
-    int[] to = new int[] { R.id.item1, R.id.item2, R.id.item3, R.id.item4 };
+    String[] from = new String[] { "rowid", "col_1", "col_2", "col_3", "col_4" };
+    int[] to = new int[] { R.id.item1, R.id.item2, R.id.item3, R.id.item4, R.id.item5 };
 
     // prepare the list of all records
     List<HashMap<String, String>> fillMaps = new ArrayList<HashMap<String, String>>();
     for (int i = 0; i < qf.getQuestions().length; i++) {
+      int points = 0;
       HashMap<String, String> map = new HashMap<String, String>();
       map.put("rowid", "" + i+1);
       Question curq = qf.getQuestions()[i];
@@ -41,11 +43,16 @@ public class ResultList extends Activity {
       String correct = "";
       if (String.valueOf(curq.getAnswer()) == correctAnswer) {
         correct = "goed!";
+        points = qf.getPointsPerQuestion();
         correctQ++;
       } else {
         correct = "fout!";
       }
       map.put("col_3", correct);
+      int timeLeft = (int) ( curq.getMaxTime() - curq.getDuration());
+      points += (timeLeft * 5);
+      score += points;
+      map.put("col_4", String.valueOf(points));
       fillMaps.add(map);
     }
 
