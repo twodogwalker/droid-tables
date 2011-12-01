@@ -6,12 +6,14 @@ import android.util.Log;
 
 public class QuestionFactory implements Parcelable {
   private Question[] qList = null;
+  private String name = "";
   private int current = 0;
   private int numberOfQuestions = 0;
   private long maxTime = 0;
   private int pointsPerQuestion = 0;
 
-  public QuestionFactory(String level, int[] tables) {
+  public QuestionFactory(String name, String level, int[] tables) {
+    this.name = name;
     setLevel(level);
     qList = new Question[numberOfQuestions];
     for (int i = 0; i < numberOfQuestions; i++) {
@@ -36,7 +38,7 @@ public class QuestionFactory implements Parcelable {
       this.pointsPerQuestion = 12;
     }
   }
-  
+
   public int getPointsPerQuestion() {
     return this.pointsPerQuestion;
   }
@@ -99,6 +101,7 @@ public class QuestionFactory implements Parcelable {
   // write your object's data to the passed-in Parcel
   public void writeToParcel(Parcel out, int flags) {
     out.writeInt(current);
+    out.writeString(name);
     out.writeInt(numberOfQuestions);
     out.writeLong(maxTime);
     out.writeSerializable(qList);
@@ -120,12 +123,17 @@ public class QuestionFactory implements Parcelable {
   // with it's values
   private QuestionFactory(Parcel in) {
     current = in.readInt();
+    name = in.readString();
     numberOfQuestions = in.readInt();
     maxTime = in.readLong();
     qList = (Question[]) in.readSerializable();
   }
 
   public long getMaxTime() {
-    return this.getMaxTime();
+    return this.maxTime;
+  }
+
+  public String getName() {
+    return name;
   }
 }

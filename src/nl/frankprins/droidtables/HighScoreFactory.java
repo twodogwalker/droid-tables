@@ -10,6 +10,7 @@ public class HighScoreFactory {
 
   public HighScoreFactory(Context c) {
     preferences = c.getSharedPreferences("Highscores", 0);
+
     names = new String[10];
     score = new int[10];
     for (int x = 0; x < 10; x++) {
@@ -62,4 +63,9 @@ public class HighScoreFactory {
     return true;
   }
 
+  public void deleteScores() {
+    SharedPreferences.Editor editor = preferences.edit();
+    editor.clear();
+    editor.commit();
+  }
 }
