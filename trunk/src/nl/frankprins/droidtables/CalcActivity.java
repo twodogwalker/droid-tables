@@ -14,7 +14,7 @@ import android.widget.Toast;
 public class CalcActivity extends Activity implements OnClickListener {
   private QuestionFactory qFact = null;
   private String level;
-  private int score = 0;
+  private String name="";
   private ProgressBar progressBar;
   private MyTimer timer;
   private TextView questionTitleView;
@@ -36,7 +36,8 @@ public class CalcActivity extends Activity implements OnClickListener {
     multiplierLabel.setText("9");
     tableLabel = (TextView) findViewById(R.id.TextViewS3);
     level = getIntent().getStringExtra("LEVEL");
-    qFact = new QuestionFactory(level, getIntent().getIntArrayExtra("TABLES"));
+    name = getIntent().getStringExtra("NAME");
+    qFact = new QuestionFactory(name, level, getIntent().getIntArrayExtra("TABLES"));
     timer = new MyTimer(qFact.getMaxTime(), 100);
     startQuestion(qFact.getFirstQ());
 

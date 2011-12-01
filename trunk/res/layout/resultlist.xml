@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:height="30dip"
-            android:width="20dip" />
+            android:width="40dip" />
 
         <TextView
             android:id="@+id/item2"
@@ -33,24 +33,24 @@
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:height="30dip"
-            android:text="Juist"
-            android:width="100dip" />
+            android:text="Answer"
+            android:width="60dip" />
 
         <TextView
             android:id="@+id/item4"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:height="30dip"
-            android:text="Jouw"
-            android:width="60dip" />
+            android:text="Correct?"
+            android:width="70dip" />
 
         <TextView
             android:id="@+id/item5"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:height="30dip"
-            android:text="Jouw"
-            android:width="60dip" />
+            android:text="Score"
+            android:width="40dip" />
     </LinearLayout>
 
     <!-- List Divider -->
