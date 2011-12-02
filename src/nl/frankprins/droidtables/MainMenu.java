@@ -101,6 +101,14 @@ public class MainMenu extends Activity {
       }
     });
 
+    // HighScoreButton
+    Button highScoreBtn = (Button) findViewById(R.id.HighScoreButton);
+    highScoreBtn.setOnClickListener(new View.OnClickListener() {
+
+      public void onClick(View v) {
+        startActivity(new Intent(getApplicationContext(), HighScoreList.class));
+      }
+    });
     levelchoice = (Spinner) findViewById(R.id.levelchoice);
     ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
         R.array.level_choice_array, android.R.layout.simple_spinner_item);
